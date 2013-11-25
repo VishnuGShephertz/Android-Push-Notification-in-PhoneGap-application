@@ -277,6 +277,17 @@ __Calling Java-Script function from Android native code:__ Whenever Push Notific
 
 ```
 
+__Rendering Push Notification on Html Page:__ Whenever Push Notification comes on device we have to render it on HTML page.Following function is called from Android native and render Push
+Notification on Html Page.
+
+```
+    function callFromActivity(msg) {
+			   alert(msg)
+		  	document.getElementById("mytext").innerHTML = msg;
+	 	}
+
+```
+
 __Calling Native Android function from Java-Script:__ Wa can also call native Android function from java-script that are defined in MyJavaScriptInterface
 class.
 As we added this class on Appview with Name "AndroidFunction" , So we can used this to call native function as did in index.html file.
