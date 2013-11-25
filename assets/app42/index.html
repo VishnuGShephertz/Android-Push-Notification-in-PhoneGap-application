@@ -1,0 +1,82 @@
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width; user-scalable=0;" />
+<title>PushNotification</title>
+<script type="text/javascript" charset="utf-8" src="js/App42.js"></script>
+</head>
+<body onload="intializeApp42API()">
+	<h1>PushNotification</h1>
+	<p id="mytext">No message yet</p>
+	<div>
+	<label>Your message</label>
+		<input id="msg" name="message" type="text" maxlength="255"
+			value="Hi I am using App42Push" />
+	</div>
+	<div>
+  <label>Enter user-name To send push</label>
+		<input id="user" name="user" type="text" maxlength="255"
+			value="tillu" />
+	</div>
+	<p>PushNotification using Javascript App42API</p>
+	<div>
+		<input type="button" value="Push To User" onClick="sendPushToUser()" />
+		<input type="button" value="Push To All" onClick="sendPushMessageToAll()" />
+	</div>
+	<p>PushNotification using Android App42API</p>
+
+	<div>
+		<input type="button" value="Push To User"
+			onClick="sendPushToUserUsingAndroid()" /> <input type="button"
+			value="Push To All" onClick="sendPushToAllUsingAndroid()" />
+	</div>
+
+	<p>Call Android Native functions</p>
+	<input type="button" value="Toast Message"
+		onClick="showAndroidToast('Hello App42 PushNotification!')" />
+	<input type="button" value="Open Dialog" onClick="openAndroidDialog()" />
+	<script type="text/javascript">
+		function intializeApp42API() {
+			App42
+					.initialize(
+							'462302e01fed25065d6cb856ddfad422a871c05f39b4193e68a78da66eaa42b1',
+							'60735a72502ebff2d6b4318fed646049720063e3cdbda5d647ed27d97567e179');
+		}
+
+		function showAndroidToast(toast) {
+			AndroidFunction.showToast(toast);
+		}
+		function openAndroidDialog() {
+			AndroidFunction.openAndroidDialog();
+		}
+		function callFromActivity(msg) {
+			alert(msg)
+			document.getElementById("mytext").innerHTML = msg;
+		}
+		function sendPushToUserUsingAndroid() {
+			var msg = document.getElementById('msg').value;
+			var user = document.getElementById('user').value;
+			alert("send push to user "+username);
+			AndroidFunction.sendPushToUSer(user, msg);
+		}
+		function sendPushToAllUsingAndroid() {
+			var msg = document.getElementById('msg').value;
+			alert("send push to all");
+			AndroidFunction.sendPushToAll(msg);
+		}
+		function sendPushToUser() {
+			var msg = document.getElementById('msg').value;
+			var username = document.getElementById('user').value;
+			var push = new App42Push();
+			alert("send push to user "+username);
+			push.sendPushMessageToUser(username, msg);
+		}
+		function sendPushMessageToAll() {
+			var push = new App42Push();
+			var message =document.getElementById('msg').value;
+			alert("send push to all");
+			push.sendPushMessageToAll(message);
+		}
+	</script>
+</body>
+</html>
