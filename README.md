@@ -40,8 +40,8 @@ C. Send appropriate message to user by clicking Send Button.
 ```
 # Design Details:
 
-__Initializing App42API and registering User for Push Notification on Android:__ To get Push Notification we have initialize App42 API.
-Register User for Push Notification in App42PhonegapPush.java file.
+__Initializing App42API and registering User for Push Notification in Android:__ To get Push Notification we have to initialize App42 API and
+have to register User for Push Notification in App42PhonegapPush.java file.
  
 ```
    App42API.initialize(
@@ -65,7 +65,7 @@ __Initializing App42API in Java-script to send Push Notication using HTML Applic
 
 ```
 
-__Send Message to User using Java-Script App42 API :__ If you want to send Push Notification message using App42 API , pass the userId and
+__Send Push Notification to User using Java-Script App42 API :__ If you want to send Push Notification message using App42 API , pass the userId and
 message in below method .
  
 ```
@@ -79,7 +79,7 @@ function sendPushToUser() {
 
 ```
 
-__Send Message to All using Java-Script App42 API :__ If you want to send Push Notification message to all users using App42 API , pass message in below method .
+__Send Push Notification to all users using Java-Script App42 API :__ If you want to send Push Notification message to all users using App42 API , pass message in below method .
  
 ```
     public void sendPushToAll(String message){
@@ -99,7 +99,7 @@ __Send Message to All using Java-Script App42 API :__ If you want to send Push N
         }
 
 ```
-__Send Message to User using Android App42 API :__ If you want to send Push Notification message using App42 API , pass the userId and
+__Send Push Notification to User using Android App42 API :__ If you want to send Push Notification message using App42 API , pass the userId and
 message in below method .
  
 ```
@@ -122,7 +122,7 @@ message in below method .
 
 ```
 
-__Send Message to All using Android App42 API :__ If you want to send Push Notification message to all users using App42 API , pass message in below method .
+__Send Push Notification to all users using Android App42 API :__ If you want to send Push Notification message to all users using App42 API , pass message in below method .
  
 ```
     public void sendPushToAll(String message){
@@ -163,7 +163,7 @@ __Customize Push Notification Message:__ You can also customize your Push Notifi
 
 ```
 
-_MyJavaScriptInterface class:__ We have to make a MyJavaScriptInterface class in App42PhonegapPush.java file.This class uses for:
+__MyJavaScriptInterface class:__ We have to make a MyJavaScriptInterface class in App42PhonegapPush.java file.This class uses for:
 
 1. Act as a medium for communication between Java-script and Native Android.
 2. We can perform native operation by calling its function from Java-script API.
@@ -254,7 +254,7 @@ __Add MyJavaScriptInterface on Appview using PhoneGap:__ You have to add MyJavaS
 
 ```
 
-__Calling Java-Script function from android native code:__ Whenever Push Notification comes on device we have to render it on HTML page.
+__Calling Java-Script function from Android native code:__ Whenever Push Notification comes on device we have to render it on HTML page.
  
 ```
     public void renderData(final String message) {
@@ -270,6 +270,25 @@ __Calling Java-Script function from android native code:__ Whenever Push Notific
         t.start();
         super.loadUrl("javascript:callFromActivity(\"" + message + "\")");
     }
+
+```
+
+__Calling Native Android function from Java-Script:__ Wa can also call native Android function from java-script that are defined in MyJavaScriptInterface
+class.
+As we added this class on Appview with Name "AndroidFunction" , So we can used this to call native function as did in index.html file.
+ 
+```
+    //Using this we can send Push Notification to all Users using Android native code.
+    AndroidFunction.sendPushToAll(msg);
+    
+     //Using this we can send Push Notification to a User using Android native code.
+    AndroidFunction.sendPushToUSer(user, msg);
+    
+    //Using this we can open a AlertDialog of Android App.
+    AndroidFunction.openAndroidDialog();
+    
+    //Using this we can Show Android Toast Message
+    AndroidFunction.showToast(toast);
 
 ```
 
