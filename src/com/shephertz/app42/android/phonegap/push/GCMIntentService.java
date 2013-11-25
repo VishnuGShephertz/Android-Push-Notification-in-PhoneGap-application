@@ -76,6 +76,10 @@ public class GCMIntentService extends GCMBaseIntentService{
 		
 	}
 
+	/*
+	 * This function is used to register Android device on App42 to integrate PushNotification
+	 * @param regId registration I given by GCM
+	 */
 	private void registerWithApp42(String regId) {
 		App42Log.debug(" Registering on Server ....");
 		App42API.buildPushNotificationService().storeDeviceToken(App42API.getLoggedInUser(), regId, new App42CallBack() {
@@ -145,14 +149,15 @@ public class GCMIntentService extends GCMBaseIntentService{
         .setContentTitle(title)
         .setContentText(message)
         .setContentIntent(intent)
-        .setSmallIcon(android.R.drawable.stat_notify_sync)
+        .setSmallIcon(android.R.drawable.menuitem_background)
         .setWhen(when)
         .setLargeIcon(bmp)
         .setLights(Color.YELLOW, 1, 2)
         .setAutoCancel(true)
         .getNotification();
         
-        
+        notification.defaults |= Notification.DEFAULT_SOUND; 
+        notification.defaults |= Notification.DEFAULT_VIBRATE;
         notificationManager.notify(0, notification);
     }
     
@@ -161,7 +166,7 @@ public class GCMIntentService extends GCMBaseIntentService{
 	    AssetManager assetManager = getAssets();
 	    InputStream istr;
 		try {
-			istr = assetManager.open("push_icon.png");
+			istr = assetManager.open("app42/images/push_icon.png");
 			  Bitmap bitmap = BitmapFactory.decodeStream(istr);
 			  return bitmap;
 		} catch (IOException e) {

@@ -12,6 +12,12 @@ import com.shephertz.app42.paas.sdk.android.push.DeviceType;
  */
 public class Util {
 
+	/*
+	 * This function is used to register Android device on App42 to integrate
+	 * PushNotification
+	 * 
+	 * @param ProjectNo
+	 */
 	public static void registerWithApp42(String projectNo) {
 		App42Log.debug(" ..... Registeration Check ....");
 		GCMIntentService.setSenderId(projectNo);
@@ -23,10 +29,9 @@ public class Util {
 
 		} else if (!GCMRegistrar.isRegisteredOnServer(App42API.appContext)) {
 			App42Log.debug(" Registering on Server ....");
-
-			App42API.buildPushNotificationService().subscribeToChannel(
-					"Sadjkhdasj", "PROPERTIES", deviceRegId,
-					DeviceType.ANDROID, new App42CallBack() {
+			App42API.buildPushNotificationService().storeDeviceToken(
+					App42API.getLoggedInUser(), deviceRegId,
+					new App42CallBack() {
 
 						@Override
 						public void onSuccess(Object paramObject) {

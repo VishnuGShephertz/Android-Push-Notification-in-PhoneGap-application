@@ -17,10 +17,12 @@ import com.shephertz.app42.paas.sdk.android.App42CallBack;
  */
 public class App42PhonegapPush extends DroidGap {
 	/** Called when the activity is first created. */
+	private final int TimeOut = 38000;
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		super.setIntegerProperty("loadUrlTimeoutValue", 380000);
+		super.setIntegerProperty("loadUrlTimeoutValue", TimeOut);
 		final MyJavaScriptInterface myJavaScriptInterface = new MyJavaScriptInterface(
 				this);
 		init();
@@ -32,12 +34,10 @@ public class App42PhonegapPush extends DroidGap {
 		if (message != null)
 			renderData(message);
 
-		 App42API.initialize(
-	                this,
-	                "462302e01fed25065d6cb856ddfad422a871c05f39b4193e68a78da66eaa42b1",
-	                "60735a72502ebff2d6b4318fed646049720063e3cdbda5d647ed27d97567e179");
-	        App42API.setLoggedInUser("tillu") ;
-	       Util.registerWithApp42("531770420900");
+		App42API.initialize(this, "<YOUR API KEY>", "<YOUR SECRET KEY>");
+		App42API.setLoggedInUser("<Your User Id>");
+		Util.registerWithApp42("<Your Google Project No>");
+	
 	}
 
 	/*
@@ -70,42 +70,59 @@ public class App42PhonegapPush extends DroidGap {
 			mContext = c;
 		}
 
-		public void sendPushToUSer(String userName,String message){
-			App42API.buildPushNotificationService().sendPushMessageToUser(userName, message, new App42CallBack() {
-				
-				@Override
-				public void onSuccess(Object arg0) {
-					// TODO Auto-generated method stub
-					
-				}
-				
-				@Override
-				public void onException(Exception arg0) {
-					// TODO Auto-generated method stub
-					
-				}
-			});
-		}
-		
-		
-		public void sendPushToAll(String message){
-			App42API.buildPushNotificationService().sendPushMessageToAll(message, new App42CallBack() {
-				@Override
-				public void onSuccess(Object arg0) {
-					// TODO Auto-generated method stub
-					
-				}
-				
-				@Override
-				public void onException(Exception arg0) {
-					// TODO Auto-generated method stub
-					
-				}
-			});
-		}
-		
 		/*
-		 * This function show Toast Message when called from Javascript
+		 * This function is used to send PushNotification to a specific
+		 * registered user
+		 * 
+		 * @param userName to which message should be sent
+		 * 
+		 * @param message
+		 */
+		public void sendPushToUSer(String userName, String message) {
+			App42API.buildPushNotificationService().sendPushMessageToUser(
+					userName, message, new App42CallBack() {
+
+						@Override
+						public void onSuccess(Object arg0) {
+							// TODO Auto-generated method stub
+
+						}
+
+						@Override
+						public void onException(Exception arg0) {
+							// TODO Auto-generated method stub
+
+						}
+					});
+		}
+
+		/*
+		 * This function used to send PushNotification to all the users
+		 * registered with this application This function calls from
+		 * java-script. This function shows communication between java-script
+		 * and Android Native
+		 */
+		public void sendPushToAll(String message) {
+			App42API.buildPushNotificationService().sendPushMessageToAll(
+					message, new App42CallBack() {
+						@Override
+						public void onSuccess(Object arg0) {
+							// TODO Auto-generated method stub
+
+						}
+
+						@Override
+						public void onException(Exception arg0) {
+							// TODO Auto-generated method stub
+
+						}
+					});
+		}
+
+		/*
+		 * This function show Toast Message when called from Java-script
+		 * 
+		 * @param message that should be shown in form of Android Toast
 		 */
 		public void showToast(String message) {
 			Toast.makeText(mContext, message, Toast.LENGTH_SHORT).show();

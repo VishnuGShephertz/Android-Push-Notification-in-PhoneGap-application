@@ -4,43 +4,56 @@
 <meta name="viewport" content="width=device-width; user-scalable=0;" />
 <title>PushNotification</title>
 <script type="text/javascript" charset="utf-8" src="js/App42.js"></script>
+
+<style type="text/css">
+
+h1{color:#353535;}
+
+.mytext{color:#333;}
+
+.msg{border-radius:4px; border:1px solid #CCC; padding:3px; -moz-box-shadow:    inset 0 0 3px #cccccc;
+   -webkit-box-shadow: inset 0 0 3px #cccccc;
+   box-shadow:         inset 0 0 3px #cccccc;}
+
+
+</style>
 </head>
 <body onload="intializeApp42API()">
 	<h1>PushNotification</h1>
-	<p id="mytext">No message yet</p>
+	<p id="mytext" class="mytext">No message yet</p>
 	<div>
-	<label>Your message</label>
-		<input id="msg" name="message" type="text" maxlength="255"
+	<label class="mytext">Your message</label>
+		<input id="msg" class="msg" name="message" type="text" maxlength="255"
 			value="Hi I am using App42Push" />
 	</div>
 	<div>
-  <label>Enter user-name To send push</label>
-		<input id="user" name="user" type="text" maxlength="255"
-			value="tillu" />
+  <label class="mytext">Enter user-name To send push</label>
+		<input id="user" class="msg" name="user" type="text" maxlength="255"
+			value="username" />
 	</div>
-	<p>PushNotification using Javascript App42API</p>
+	<p class="mytext">PushNotification using Javascript App42API</p>
 	<div>
-		<input type="button" value="Push To User" onClick="sendPushToUser()" />
-		<input type="button" value="Push To All" onClick="sendPushMessageToAll()" />
+		<input type="image" src="images/push_to_user.png" alt="submit" value="Push To User" onClick="sendPushToUser()" />
+		<input type="image" src="images/push_to_all.png" alt="submit" value="Push To All" onClick="sendPushMessageToAll()" />
 	</div>
-	<p>PushNotification using Android App42API</p>
+	<p class="mytext">PushNotification using Android App42API</p>
 
 	<div>
-		<input type="button" value="Push To User"
-			onClick="sendPushToUserUsingAndroid()" /> <input type="button"
+		<input type="image" src="images/push_to_user.png" alt="submit" value="Push To User"
+			onClick="sendPushToUserUsingAndroid()" /> <input type="image" src="images/push_to_all.png" alt="submit"
 			value="Push To All" onClick="sendPushToAllUsingAndroid()" />
 	</div>
 
-	<p>Call Android Native functions</p>
-	<input type="button" value="Toast Message"
+	<p class="mytext">Call Android Native functions</p>
+	<input type="image" src="images/toast_message.png" alt="submit" value="Toast Message"
 		onClick="showAndroidToast('Hello App42 PushNotification!')" />
-	<input type="button" value="Open Dialog" onClick="openAndroidDialog()" />
+	<input type="image" src="images/open_dialog.png" alt="submit" value="Open Dialog" onClick="openAndroidDialog()" />
 	<script type="text/javascript">
 		function intializeApp42API() {
 			App42
 					.initialize(
-							'462302e01fed25065d6cb856ddfad422a871c05f39b4193e68a78da66eaa42b1',
-							'60735a72502ebff2d6b4318fed646049720063e3cdbda5d647ed27d97567e179');
+							'<YOUR API KEY>',
+							'<YOUR SECRET KEY>');
 		}
 
 		function showAndroidToast(toast) {
@@ -55,26 +68,26 @@
 		}
 		function sendPushToUserUsingAndroid() {
 			var msg = document.getElementById('msg').value;
-			var user = document.getElementById('user').value;
-			alert("send push to user "+username);
+			var username = document.getElementById('user').value;
+			alert("send push message to user "+username);
 			AndroidFunction.sendPushToUSer(user, msg);
 		}
 		function sendPushToAllUsingAndroid() {
 			var msg = document.getElementById('msg').value;
-			alert("send push to all");
+			alert("send push message to all");
 			AndroidFunction.sendPushToAll(msg);
 		}
 		function sendPushToUser() {
 			var msg = document.getElementById('msg').value;
 			var username = document.getElementById('user').value;
 			var push = new App42Push();
-			alert("send push to user "+username);
+			alert("send push message to user "+username);
 			push.sendPushMessageToUser(username, msg);
 		}
 		function sendPushMessageToAll() {
 			var push = new App42Push();
 			var message =document.getElementById('msg').value;
-			alert("send push to all");
+			alert("send push message to all");
 			push.sendPushMessageToAll(message);
 		}
 	</script>
