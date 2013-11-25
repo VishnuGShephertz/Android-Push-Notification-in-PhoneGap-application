@@ -5,6 +5,8 @@ App42-Android-Push-Sample-Using-PhoneGap
 # About Application
 
 1. This application shows how can we integrate Push Notification using App42 API in Phone-Gap Android application.
+2. How we can send Push Notification using App42 Java-Script as well as Android Push Notification API.
+3. How easily we can communicate between HTML and android native features in Phone Gap application of Android.
 
 # Running Sample
 
