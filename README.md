@@ -163,7 +163,7 @@ __Customize Push Notification Message:__ You can also customize your Push Notifi
 
 ```
 
-_MyJavaScriptInterface class:__ We have to make a MyJavaScriptInterface class in App42PhonegapPush.java file.This class uses for:
+__MyJavaScriptInterface class:__ We have to make a MyJavaScriptInterface class in App42PhonegapPush.java file.This class uses for:
 
 1. Act as a medium for communication between Java-script and Native Android.
 2. We can perform native operation by calling its function from Java-script API.
