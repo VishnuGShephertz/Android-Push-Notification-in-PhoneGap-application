@@ -157,7 +157,8 @@ __Customize Push Notification Message:__ You can also customize your Push Notifi
         .setLights(Color.YELLOW, 1, 2)
         .setAutoCancel(true)
         .getNotification();
- 
+        notification.defaults |= Notification.DEFAULT_SOUND; 
+        notification.defaults |= Notification.DEFAULT_VIBRATE;
         notificationManager.notify(0, notification);
 
 ```
