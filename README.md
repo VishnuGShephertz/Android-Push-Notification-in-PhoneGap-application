@@ -257,6 +257,7 @@ __Add MyJavaScriptInterface on Appview using PhoneGap:__ You have to add MyJavaS
 ```
 
 __Calling Java-Script function from Android native code:__ Whenever Push Notification comes on device we have to render it on HTML page.
+1.callFromActivity(msg) is defined in your html file to render Push Notification on HTML pages.
  
 ```
     public void renderData(final String message) {
