@@ -46,7 +46,7 @@ C. Send appropriate message to user by clicking Send Button.
 
 ```
 # Design Details:
-__Initializing App42API in Java-script to send Push Notication using HTML Application:__ To Send Push Notification using APP42 Java-Script API we have to initialize first using Api-Key and Secret-Key in HTML file.
+__Initializing App42API in Java-script to send Push Notication using HTML Application:__ To Send Push Notification using APP42 Java-Script API we have to initialize first using Api-Key and Secret-Key in index.html file.
  
 ```
 	function intializeApp42API() {
@@ -56,7 +56,7 @@ __Initializing App42API in Java-script to send Push Notication using HTML Applic
 
 ```
 
-__Registering on GCM for Push Notification in Android:__ To get Push Notification we have to register on GCM using Google Project Nocin App42PhonegapPush.java file.
+__Registering on GCM for Push Notification in Android:__ To get Push Notification we have to register on GCM using Google Project No in App42PhonegapPush.java file.
  
 ```
   
