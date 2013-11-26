@@ -37,7 +37,7 @@ A. Replace api-Key and secret-Key that you have received in step 2 or 3 at line 
 ```
 12.Build your android application and install on your android device.
 
-__Test and verify Push Notification__
+__Test and verify Push Notification from AppHQ console__
  
 ```
 A. After registering for Push Notification go to AppHQ console and click on Push Notification and select
