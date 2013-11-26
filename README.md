@@ -16,7 +16,7 @@ Here are the few easy steps to run this sample app.
 1. [Register] (https://apphq.shephertz.com/register) with App42 platform.
 2. Create an app once, you are on Quick start page after registration.
 3. If you are already registered, login to [AppHQ] (http://apphq.shephertz.com) console and create an app from App Manager Tab.
-4. To use Push Notification service in your application go to https://code.google.com/apis/console a new project here.
+4. To use Push Notification service in your application open [link] (https://code.google.com/apis/console/b/0/?noredirect&pli=1) and create a new project here.
 5. Click on services option in Google console and enable Google Cloud Messaging for Android service.
 6. Click on API Access tab and create a new server key for your application with blank server information.
 7. Go to [AppHQ] (http://apphq.shephertz.com) console and click on Push Notification and select Android Settings in Settings option.
@@ -25,11 +25,17 @@ Here are the few easy steps to run this sample app.
 10. Open App42PhonegapPush.java file in sample app and make following changes.
 
 ```
-A. Replace api-Key and secret-Key that you have received in step 2 or 3 at line number 37 and 38.
-C. Replace your user-id by which you want to register your application for PushNotification at line number 39.
-B. Replace project-no with your Google Project Number at line number 40.
+A. Replace api-Key and secret-Key that you have received in step 2 or 3 at line number 37.
+C. Replace your user-id by which you want to register your application for PushNotification at line number 38.
+B. Replace project-no with your Google Project Number at line number 39.
 ```
-11.Build your android application and install on your android device.
+
+11.If you want to send Push Notification using App42 Java-Script API than Open index.hml file in assets/app42 folder of sample app and make following changes.
+
+```
+A. Replace api-Key and secret-Key that you have received in step 2 or 3 at line number 55 and 56.
+```
+12.Build your android application and install on your android device.
 
 __Test and verify Push Notification__
  
@@ -261,19 +267,16 @@ __Calling Java-Script function from Android native code:__ Whenever Push Notific
 1. callFromActivity(msg) function() is defined in your html file to render Push Notification on HTML pages.
  
 ```
-    public void renderData(final String message) {
-        Thread t = new Thread() {
-            public void run() {
-                try {
-                    sleep(3000);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            };
-        };
-        t.start();
-        super.loadUrl("javascript:callFromActivity(\"" + message + "\")");
-    }
+ 	public void renderData(final String message) {
+		try {
+			Thread.sleep(3000);
+			super.loadUrl("javascript:callFromActivity(\"" + message + "\")");
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+ 	}
+
 
 ```
 
@@ -297,7 +300,7 @@ As we added this class on Appview with Name "AndroidFunction" , So we can used t
     AndroidFunction.sendPushToAll(msg);
     
      //Using this we can send Push Notification to a User using Android native code.
-    AndroidFunction.sendPushToUSer(user, msg);
+    AndroidFunction.sendPushToUSer(username, msg);
     
     //Using this we can open a AlertDialog of Android App.
     AndroidFunction.openAndroidDialog();
