@@ -37,7 +37,7 @@ public class App42PhonegapPush extends DroidGap {
 		App42API.initialize(this, "<YOUR API KEY>", "<YOUR SECRET KEY>");
 		App42API.setLoggedInUser("<Your User Id>");
 		Util.registerWithApp42("<Your Google Project No>");
-	
+
 	}
 
 	/*
@@ -46,17 +46,13 @@ public class App42PhonegapPush extends DroidGap {
 	 * @param message that should be render on HTML page
 	 */
 	public void renderData(final String message) {
-		Thread t = new Thread() {
-			public void run() {
-				try {
-					sleep(3000);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			};
-		};
-		t.start();
-		super.loadUrl("javascript:callFromActivity(\"" + message + "\")");
+		try {
+			Thread.sleep(3000);
+			super.loadUrl("javascript:callFromActivity(\"" + message + "\")");
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	/*
