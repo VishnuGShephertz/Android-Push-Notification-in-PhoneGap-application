@@ -269,7 +269,7 @@ __Calling Java-Script function from Android native code:__ Whenever Push Notific
 ```
  	public void renderData(final String message) {
 		try {
-			Thread.sleep(3000);
+			Thread.sleep(5000);
 			super.loadUrl("javascript:callFromActivity(\"" + message + "\")");
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
