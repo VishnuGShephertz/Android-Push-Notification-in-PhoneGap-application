@@ -26,11 +26,11 @@ Here are the few easy steps to run this sample app.
 
 ```
 A. Replace api-Key and secret-Key that you have received in step 2 or 3 at line number 37.
-C. Replace your user-id by which you want to register your application for PushNotification at line number 38.
+C. Replace your user-id by which you want to register your application for Push Notification at line number 38.
 B. Replace project-no with your Google Project Number at line number 39.
 ```
 
-11.If you want to send Push Notification using App42 Java-Script API than Open index.hml file in assets/app42 folder of sample app and make following changes.
+11.If you want to send Push Notification using App42 Java-Script API than open index.hml file in assets/app42 folder of sample app and make following changes.
 
 ```
 A. Replace api-Key and secret-Key that you have received in step 2 or 3 at line number 55 and 56.
@@ -280,7 +280,7 @@ __Calling Java-Script function from Android native code:__ Whenever Push Notific
 
 ```
 
-__Rendering Push Notification on Html Page:__ Whenever Push Notification comes on device we have to render it on HTML page.Following function is called from Android native and render Push
+__Rendering Push Notification on HTML Page:__ Whenever Push Notification comes on device we have to render it on HTML page.Following function is called from Android native and render Push
 Notification on Html Page.
 
 ```
@@ -291,7 +291,7 @@ Notification on Html Page.
 
 ```
 
-__Calling Native Android function from Java-Script:__ Wa can also call native Android function from java-script that are defined in MyJavaScriptInterface
+__Calling Native Android function from Java-Script:__ We can also call native Android function from java-script that are defined in MyJavaScriptInterface
 class.
 As we added this class on Appview with Name "AndroidFunction" , So we can used this to call native function as did in index.html file.
  
