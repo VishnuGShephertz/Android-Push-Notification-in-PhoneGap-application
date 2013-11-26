@@ -25,7 +25,7 @@ Here are the few easy steps to run this sample app.
 10. Open index.html  file in assets/app42 of sample app and make following changes.
 
 ```
-A. Replace api-Key and secret-Key that you have received in step 2 or 3 at line number 5q.
+A. Replace api-Key and secret-Key that you have received in step 2 or 3 at line number 51.
 C. Replace your user-id by which you want to register your application for Push Notification at line number 52.
 ```
 
@@ -49,12 +49,10 @@ C. Send appropriate message to user by clicking Send Button.
 __Initializing App42API in Java-script to send Push Notication using HTML Application:__ To Send Push Notification using APP42 Java-Script API we have to initialize first using Api-Key and Secret-Key in HTML file.
  
 ```
-  function intializeApp42API() {
-            App42
-                    .initialize(
-                            '<YOUR API KEY>',
-                            '<YOUR SECRET KEY>');
-        };
+	function intializeApp42API() {
+			App42.initialize('<YOUR API KEY>', '<YOUR SECRET KEY>');
+			App42.setLoggedInUser('<Your User Id>');
+		}
 
 ```
 
@@ -140,7 +138,7 @@ Notification on Html Page.
 	 	}
 
 ```
-__Calling Java-Script registerForPush(deviceId) function from Android native code:__ This function is used to store device Id on App41 to get Push Notifications.
+__Calling Java-Script registerForPush(deviceId) function from Android native code:__ This function is used to store device Id on App42 to get Push Notifications.
 
 ```
  	public void registerForApp42Push(String deviceId) {
