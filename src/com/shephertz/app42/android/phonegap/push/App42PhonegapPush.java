@@ -44,10 +44,11 @@ public class App42PhonegapPush extends DroidGap {
 	 * This function is used to render PushNotification on HTML page
 	 * 
 	 * @param message that should be render on HTML page
+	 * requires some time to render message on HTML page
 	 */
 	public void renderData(final String message) {
 		try {
-			Thread.sleep(3000);
+			Thread.sleep(5000);
 			super.loadUrl("javascript:callFromActivity(\"" + message + "\")");
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
