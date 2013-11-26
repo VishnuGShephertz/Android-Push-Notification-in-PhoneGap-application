@@ -5,12 +5,12 @@ App42-Android-Push-Sample-Using-PhoneGap
 # About Application
 
 1. This application shows how can we integrate Push Notification using App42 API in Phone-Gap Android application.
-2. How we can send Push Notification using App42 Java-Script Push Notification API.
+2. How we can send Push Notification using App42 JavaScript Push Notification API.
 
 
 # Running Sample
 
-This is a sample Android app is made by using App42 back-end platform. It uses Push Notification API of App42 platform.
+This is a sample Android app is made by using App42 JavaScript API. It uses Push Notification API of App42 platform.
 Here are the few easy steps to run this sample app.
 
 1. [Register] (https://apphq.shephertz.com/register) with App42 platform.
@@ -46,7 +46,7 @@ C. Send appropriate message to user by clicking Send Button.
 
 ```
 # Design Details:
-__Initializing App42API in Java-script to send Push Notification :__ To Send Push Notification using APP42 Java-Script API we have to initialize first using Api-Key and Secret-Key in index.html file.
+__Initializing App42API in JavaScript to send Push Notification :__ To Send Push Notification using APP42 Java-Script API we have to initialize first using Api-Key and Secret-Key in index.html file.
  
 ```
 	function intializeApp42API() {
@@ -66,7 +66,7 @@ __Registering on GCM for Push Notification in Android:__ To get Push Notificatio
 
 
 
-__Send Push Notification to User using Java-Script App42 API :__ If you want to send Push Notification message using App42 API , pass the userId and
+__Send Push Notification to User using JavaScript App42 API :__ If you want to send Push Notification message using App42 API , pass the userId and
 message in below method .
  
 ```
@@ -79,7 +79,7 @@ message in below method .
 
 ```
 
-__Send Push Notification to all users using Java-Script App42 API :__ If you want to send Push Notification message to all users using App42 API , pass message in below method .
+__Send Push Notification to all users using JavaScript App42 API :__ If you want to send Push Notification message to all users using App42 API , pass message in below method .
  
 ```
 	 function sendPushMessageToAll() {
@@ -111,7 +111,7 @@ __Customize Push Notification Message:__ You can also customize your Push Notifi
 
 
 
-__Calling Java-Script pushMessageAlert(msg) function from Android native code:__ Whenever Push Notification comes on device we have to render it on HTML page.
+__Calling JavaScript pushMessageAlert(msg) function from Android native code:__ Whenever Push Notification comes on device we have to render it on HTML page.
 
  
 ```
@@ -138,7 +138,7 @@ Notification on Html Page.
 	 	}
 
 ```
-__Calling Java-Script registerForPush(deviceId) function from Android native code:__ This function is used to store device Id on App42 to get Push Notifications.
+__Calling JavaScript registerForPush(deviceId) function from Android native code:__ This function is used to store device Id on App42 to get Push Notifications.
 
 ```
  	public void registerForApp42Push(String deviceId) {
@@ -165,5 +165,50 @@ __Store Device Token on App42:__ This function store device token on App42 using
 
 ```
 
+__ AndroidManifest.xml file Changes:__ If you are customizing your own Android application that is built using PhoneGap API.
+So make following changes in your AndroidManifest.xml using this sample's AndroidManifest.xml file.
+1. Replace "com.shephertz.app42.android.phonegap.push" with your application package name in AndroidManifest.xml file.
+2. Add following permission in your AndroidManifest.xml file.
 
+```
+ <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+     <uses-permission android:name="android.permission.WAKE_LOCK" />
+     
+      <permission
+        android:name="com.shephertz.app42.android.phonegap.push.permission.C2D_MESSAGE"
+        android:protectionLevel="signature" />
 
+    <uses-permission android:name="com.shephertz.app42.android.phonegap.push.permission.C2D_MESSAGE" />
+     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+
+```
+
+3.  Add Receiver component in your Androidmanifest.xml file.
+
+```
+    <receiver
+            android:name="com.google.android.gcm.GCMBroadcastReceiver"
+            android:permission="com.google.android.c2dm.permission.SEND" >
+            <intent-filter>
+
+                <!-- Receives the actual messages. -->
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+                <!-- Receives the registration id. -->
+                <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
+
+                <category android:name="com.shephertz.app42.android.phonegap.push" />
+            </intent-filter>
+        </receiver>
+
+```
+4. Declare Service in your AndroidManifest.xml file.
+
+```
+  <service android:name="com.shephertz.app42.android.phonegap.push.GCMIntentService" >
+        </service>
+```
