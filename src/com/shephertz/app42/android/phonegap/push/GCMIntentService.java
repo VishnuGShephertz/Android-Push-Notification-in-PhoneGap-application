@@ -16,6 +16,7 @@ import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
 import com.google.android.gcm.GCMBaseIntentService;
@@ -129,9 +130,8 @@ public class GCMIntentService extends GCMBaseIntentService{
      * Issues a notification to inform the user that server has sent a message.
      */
     public  void generateNotification(Context context, String message) {
-        int icon = R.drawable.ic_launcher;
-        long when = System.currentTimeMillis();
-              
+      
+        long when = System.currentTimeMillis();        
         NotificationManager notificationManager = (NotificationManager)
                 context.getSystemService(Context.NOTIFICATION_SERVICE);    
         String title = context.getString(R.string.app_name);
@@ -145,7 +145,8 @@ public class GCMIntentService extends GCMBaseIntentService{
         PendingIntent intent =
                 PendingIntent.getActivity(context, 0, notificationIntent, PendingIntent.FLAG_CANCEL_CURRENT);
         Bitmap bmp=getBitmapFromAssets();
-        Notification notification = new Notification.Builder(context)
+    
+        Notification notification = new NotificationCompat.Builder(context)
         .setContentTitle(title)
         .setContentText(message)
         .setContentIntent(intent)
@@ -154,11 +155,10 @@ public class GCMIntentService extends GCMBaseIntentService{
         .setLargeIcon(bmp)
         .setLights(Color.YELLOW, 1, 2)
         .setAutoCancel(true)
-        .getNotification();
-        
-        notification.defaults |= Notification.DEFAULT_SOUND; 
-        notification.defaults |= Notification.DEFAULT_VIBRATE;
-        notificationManager.notify(0, notification);
+        .build();
+         notification.defaults |= Notification.DEFAULT_SOUND; 
+         notification.defaults |= Notification.DEFAULT_VIBRATE;
+         notificationManager.notify(0, notification);
     }
     
     
