@@ -149,19 +149,19 @@ __Send Push Notification to all users using Android App42 API :__ If you want to
 __Customize Push Notification Message:__ You can also customize your Push Notification message by changing following code in GCMIntentService.java file accordingly.
  
 ```
-     Notification notification = new Notification.Builder(context)
+       Notification notification = new NotificationCompat.Builder(context)
         .setContentTitle(title)
         .setContentText(message)
         .setContentIntent(intent)
-        .setSmallIcon(android.R.drawable.stat_notify_sync)
+        .setSmallIcon(android.R.drawable.menuitem_background)
         .setWhen(when)
         .setLargeIcon(bmp)
         .setLights(Color.YELLOW, 1, 2)
         .setAutoCancel(true)
-        .getNotification();
-        notification.defaults |= Notification.DEFAULT_SOUND; 
-        notification.defaults |= Notification.DEFAULT_VIBRATE;
-        notificationManager.notify(0, notification);
+        .build();
+         notification.defaults |= Notification.DEFAULT_SOUND; 
+         notification.defaults |= Notification.DEFAULT_VIBRATE;
+         notificationManager.notify(0, notification);
 
 ```
 
