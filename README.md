@@ -46,7 +46,7 @@ C. Send appropriate message to user by clicking Send Button.
 
 ```
 # Design Details:
-__Initializing App42API in Java-script to send Push Notication using HTML Application:__ To Send Push Notification using APP42 Java-Script API we have to initialize first using Api-Key and Secret-Key in index.html file.
+__Initializing App42API in Java-script to send Push Notification using HTML Application:__ To Send Push Notification using APP42 Java-Script API we have to initialize first using Api-Key and Secret-Key in index.html file.
  
 ```
 	function intializeApp42API() {
