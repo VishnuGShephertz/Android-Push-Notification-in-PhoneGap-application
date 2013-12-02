@@ -167,8 +167,7 @@ __Store Device Token on App42:__ This function store device token on App42 using
 __AndroidManifest.xml file Changes:__ If you are customizing your own Android application that is built using PhoneGap API.
 So make following changes in your AndroidManifest.xml using this sample's AndroidManifest.xml file.
 
-1. Replace "com.shephertz.app42.android.phonegap.push" with your application package name in AndroidManifest.xml file.
-2. Add following permission in your AndroidManifest.xml file.
+1. Add following permission in your AndroidManifest.xml file.
 
 ```
  <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
@@ -188,7 +187,7 @@ So make following changes in your AndroidManifest.xml using this sample's Androi
 
 ```
 
-3.Add Receiver component in your Androidmanifest.xml file.
+2.Add Receiver component in your Androidmanifest.xml file.
 
 ```
     <receiver
@@ -206,9 +205,10 @@ So make following changes in your AndroidManifest.xml using this sample's Androi
         </receiver>
 
 ```
-4.Declare Service in your AndroidManifest.xml file.
+3.Declare Service in your AndroidManifest.xml file.
 
 ```
   <service android:name="com.shephertz.app42.android.phonegap.push.GCMIntentService" >
         </service>
 ```
+4.Replace "com.shephertz.app42.android.phonegap.push" with your application package name in AndroidManifest.xml file.
