@@ -26,6 +26,7 @@ import com.google.android.gcm.GCMBaseIntentService;
  */
 public class GCMIntentService extends GCMBaseIntentService {
 	public static String PROJECT_NUMBER = "";
+	public static int msgCount;
 
 	/**
 	 * Intent used to display a message in the screen.
@@ -114,6 +115,7 @@ public class GCMIntentService extends GCMBaseIntentService {
 		Notification notification = new NotificationCompat.Builder(context)
 				.setContentTitle(title).setContentText(message)
 				.setContentIntent(intent)
+				.setNumber(++msgCount)
 				.setSmallIcon(android.R.drawable.menuitem_background)
 				.setWhen(when).setLargeIcon(bmp).setLights(Color.YELLOW, 1, 2)
 				.setAutoCancel(true).build();
@@ -135,6 +137,10 @@ public class GCMIntentService extends GCMBaseIntentService {
 			return null;
 		}
 
+	}
+	
+	public static void resetMsgCount(){
+		msgCount=0;
 	}
 
 }

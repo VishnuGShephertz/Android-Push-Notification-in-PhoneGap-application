@@ -37,6 +37,7 @@ public class App42PhonegapPush extends DroidGap {
 	 */
 	public void renderData(final String message) {
 		try {
+			GCMIntentService.resetMsgCount();
 			Thread.sleep(5000);
 			super.loadUrl("javascript:pushMessageAlert(\"" + message + "\")");
 		} catch (InterruptedException e) {
