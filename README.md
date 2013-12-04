@@ -131,7 +131,7 @@ __Calling JavaScript pushMessageAlert(msg) function from Android native code:__ 
 __Rendering PushNotification on HTML Page:__ Whenever PushNotification comes on device we have to render it on HTML page.Following function is called from Android native and render PushNotification on Html Page.
 
 ```
-    function callFromActivity(msg) {
+    function pushMessageAlert(msg) {
 			   alert(msg)
 		  	document.getElementById("mytext").innerHTML = msg;
 	 	}
