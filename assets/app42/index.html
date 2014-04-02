@@ -8,6 +8,7 @@
 <style type="text/css">
 h1 {
 	color: #353535;
+	padding:20px 0px;
 }
 
 .mytext {
@@ -25,7 +26,6 @@ h1 {
 </style>
 </head>
 <body onload="intializeApp42API()">
-	<div></div>
 	<h1>PushNotification</h1>
 	<p id="mytext" class="mytext">No message yet</p>
 	<div>
@@ -68,13 +68,19 @@ h1 {
 			var username = document.getElementById('user').value;
 			var push = new App42Push();
 			alert("send push message to user " + username);
+			var arr = {dataEncoding:true};
+            
+			push.setOtherMetaHeaders(arr);
+		
 			push.sendPushMessageToUser(username, msg);
 		}
 		function sendPushMessageToAll() {
 			var push = new App42Push();
 			var message = document.getElementById('msg').value;
 			alert("send push message to all");
+			push.setOtherMetaHeaders({dataEncoding:true});
 			push.sendPushMessageToAll(message);
+			
 		}
 	</script>
 </body>
