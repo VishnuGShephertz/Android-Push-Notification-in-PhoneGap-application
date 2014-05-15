@@ -55,6 +55,13 @@ __Initializing App42API in JavaScript to send PushNotification :__ To Send PushN
 		}
 
 ```
+__Multiple Language Support:__ Using App42 Push Notification API you can easily send PushNotification in multiple langunage ,by setting following property.
+ 
+```
+	    var arr = {dataEncoding:true};
+            push.setOtherMetaHeaders(arr);
+
+```
 
 __Registering on GCM for PushNotification in Android:__ To get PushNotification we have to register on GCM using Google Project No in App42PhonegapPush.java file.
  
@@ -74,6 +81,8 @@ message in this method written in index.html file.
             var msg = document.getElementById('msg').value;
             var username = document.getElementById('user').value;
             var push = new App42Push();
+            var arr = {dataEncoding:true};
+            push.setOtherMetaHeaders(arr);
             push.sendPushMessageToUser(username, msg);
         }
 
@@ -85,6 +94,8 @@ __Send PushNotification to all users using JavaScript App42 API :__ If you want 
 	 function sendPushMessageToAll() {
 			var push = new App42Push();
 			var message = document.getElementById('msg').value;
+			  var arr = {dataEncoding:true};
+                           push.setOtherMetaHeaders(arr);
 			push.sendPushMessageToAll(message);
 		}
 
