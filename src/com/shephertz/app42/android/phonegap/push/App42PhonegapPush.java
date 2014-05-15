@@ -2,7 +2,10 @@ package com.shephertz.app42.android.phonegap.push;
 
 import org.apache.cordova.DroidGap;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 
 /**
@@ -58,5 +61,40 @@ public class App42PhonegapPush extends DroidGap {
 			e.printStackTrace();
 		}
 	}
+	/*
+	 * This method receives push notification and registartion Id
+	 */
+	private final BroadcastReceiver mHandleMessageReceiver = new BroadcastReceiver() {
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			try {
+				String registartionId=intent.getExtras().getString(
+						GCMIntentService.REGISTRATION_ID);
+				if(registartionId!=null){
+					registerForApp42Push(registartionId);
+				}
+				else{
+					String message = intent.getStringExtra(GCMIntentService.EXTRA_MESSAGE);
+					if (message != null)
+						renderData(message);
+				}
+				
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 
+	};
+	public void onStart() {
+		super.onStart();
+		registerReceiver(mHandleMessageReceiver, new IntentFilter(
+				GCMIntentService.DISPLAY_MESSAGE_ACTION));
+		
+	}
+	@Override
+	public void onDestroy() {
+		super.onDestroy();
+		unregisterReceiver(mHandleMessageReceiver);
+	}
 }

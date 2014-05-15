@@ -37,6 +37,7 @@ public class GCMIntentService extends GCMBaseIntentService {
 	 * Intent's extra that contains the message to be displayed.
 	 */
 	static final String EXTRA_MESSAGE = "message";
+	static final String REGISTRATION_ID = "registartionId";
 
 	public GCMIntentService() {
 		super(PROJECT_NUMBER);
@@ -64,8 +65,9 @@ public class GCMIntentService extends GCMBaseIntentService {
 	@Override
 	protected void onRegistered(Context context, String regId) {
 		Log.i(TAG, "Device registered: regId = " + regId);
-		((App42PhonegapPush) context).registerForApp42Push(regId);
-
+		Intent intent = new Intent(DISPLAY_MESSAGE_ACTION);
+		intent.putExtra(REGISTRATION_ID, regId);
+		context.sendBroadcast(intent);
 	}
 
 	@Override
@@ -102,7 +104,6 @@ public class GCMIntentService extends GCMBaseIntentService {
 				.getSystemService(Context.NOTIFICATION_SERVICE);
 		String title = context.getString(R.string.app_name);
 		Intent notificationIntent;
-
 		notificationIntent = new Intent(context, App42PhonegapPush.class);
 		// set intent so it does not start a new activity
 		notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
@@ -111,7 +112,6 @@ public class GCMIntentService extends GCMBaseIntentService {
 		PendingIntent intent = PendingIntent.getActivity(context, 0,
 				notificationIntent, PendingIntent.FLAG_CANCEL_CURRENT);
 		Bitmap bmp = getBitmapFromAssets();
-
 		Notification notification = new NotificationCompat.Builder(context)
 				.setContentTitle(title).setContentText(message)
 				.setContentIntent(intent)
