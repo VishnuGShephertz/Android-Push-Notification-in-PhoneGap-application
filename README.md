@@ -26,7 +26,7 @@ Here are the few easy steps to run this sample app.
 
 ```
 A. Replace api-Key and secret-Key that you have received in step 2 or 3 at line number 51.
-C. Replace your user-id by which you want to register your application for PushNotification at line number 52.
+B. Replace your user-id by which you want to register your application for PushNotification at line number 52.
 ```
 
 11.Open App42PhonegapPush.java file in sample app and make following changes.
