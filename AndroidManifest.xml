@@ -1,49 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.shephertz.app42.android.phonegap.push"
+    package="com.app42.phonegap.push"
     android:versionCode="1"
     android:versionName="1.0" >
 
     <uses-sdk android:minSdkVersion="8" />
 
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.VIBRATE" />
-     <uses-permission android:name="android.permission.WAKE_LOCK" />
-
-    <!-- GCM requires a Google account. -->
-    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <!-- Keeps the processor from sleeping when a message is received. -->
-   
+
 
     <!--
      Creates a custom permission so only this app can receive its messages.
 
      NOTE: the permission *must* be called PACKAGE.permission.C2D_MESSAGE,
-           where PACKAGE is the application's package name.
+           where PACKAGE is the application's package name.
     -->
     <permission
-        android:name="com.shephertz.app42.android.phonegap.push.permission.C2D_MESSAGE"
+        android:name="com.app42.phonegap.push.permission.C2D_MESSAGE"
         android:protectionLevel="signature" />
 
-    <uses-permission android:name="com.shephertz.app42.android.phonegap.push.permission.C2D_MESSAGE" />
+    <uses-permission android:name="com.app42.phonegap.push.permission.C2D_MESSAGE" />
 
     <!-- This app has permission to register and receive data message. -->
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
 
     <application
         android:icon="@drawable/ic_launcher"
-        android:label="@string/app_name" 
-           android:theme="@android:style/Theme.Light.NoTitleBar.Fullscreen" >>
+        android:label="@string/app_name"
+        android:theme="@android:style/Theme.Light.NoTitleBar.Fullscreen" >
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+        <meta-data
+            android:name="onMessageOpen"
+            android:value="com.app42.phonegap.push.PhoneGapActivity" />
+
         <activity
-            android:name="com.shephertz.app42.android.phonegap.push.App42PhonegapPush"
-            android:label="@string/app_name"
+            android:name="com.app42.phonegap.push.PhoneGapActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-              android:theme="@android:style/Theme.Light.NoTitleBar.Fullscreen"  >
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.Light.NoTitleBar.Fullscreen" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -51,15 +51,8 @@
             </intent-filter>
         </activity>
 
-        <!--
-          BroadcastReceiver that will receive intents from GCM
-          services and handle them to the custom IntentService.
-
-          The com.google.android.c2dm.permission.SEND permission is necessary
-          so only GCM services can send data messages for the app.
-        -->
         <receiver
-            android:name="com.google.android.gcm.GCMBroadcastReceiver"
+            android:name="com.shephertz.app42.push.plugin.App42GCMReceiver"
             android:permission="com.google.android.c2dm.permission.SEND" >
             <intent-filter>
 
@@ -67,19 +60,16 @@
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
                 <!-- Receives the registration id. -->
                 <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
-
-                <category android:name="com.shephertz.app42.android.phonegap.push" />
+                <!-- Your package name here -->
+                <category android:name="com.app42.phonegap.push" />
             </intent-filter>
         </receiver>
 
         <!--
-          Application-specific subclass of GCMBaseIntentService that will
-          handle received messages.
-
-          By default, it must be named .GCMIntentService, unless the
-          application uses a custom BroadcastReceiver that redefines its name.
+          Application-specific subclass of intentService that will
+          handle received messages.
         -->
-        <service android:name="com.shephertz.app42.android.phonegap.push.GCMIntentService" >
+        <service android:name="com.shephertz.app42.push.plugin.App42GCMService" >
         </service>
     </application>
 

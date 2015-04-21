@@ -1,4 +1,9 @@
-package com.shephertz.app42.android.phonegap.push;
+/**
+ * -----------------------------------------------------------------------
+ *     Copyright © 2015 ShepHertz Technologies Pvt Ltd. All rights reserved.
+ * -----------------------------------------------------------------------
+ */
+package com.app42.phonegap.push;
 
 import org.apache.cordova.DroidGap;
 
@@ -7,29 +12,41 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.util.Log;
+
+import com.shephertz.app42.push.plugin.App42GCMController;
+import com.shephertz.app42.push.plugin.App42GCMController.App42GCMListener;
+import com.shephertz.app42.push.plugin.App42GCMService;
 
 /**
  * @author Vishnu Garg
  * 
  */
-public class App42PhonegapPush extends DroidGap {
+public class PhoneGapActivity extends DroidGap implements App42GCMListener{
 	/** Called when the activity is first created. */
 	private final int TimeOut = 38000;
-
+	private static final String GoogleProjectNo = "Your Google Project No";
+	private final String FilePath="file:///android_asset/app42/index.html";
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		super.setIntegerProperty("loadUrlTimeoutValue", TimeOut);
 		init();
 		appView.getSettings().setJavaScriptEnabled(true);
-		super.loadUrl("file:///android_asset/app42/index.html");
+		super.loadUrl(FilePath);
 		Intent intent = getIntent();
-		String message = intent.getStringExtra("message");
+		String message = intent.getStringExtra(App42GCMService.ExtraMessage);
 		if (message != null)
 			renderData(message);
-		else
-			Util.registerWithApp42("<Your Google Project No>", this);
-
+		else{
+			if (App42GCMController.isPlayServiceAvailable(this)) {
+				App42GCMController.registerOnGCM(PhoneGapActivity.this,
+						GoogleProjectNo, this);
+			} else {
+				Log.i("App42PushNotification",
+						"No valid Google Play Services APK found.");
+			}
+		}
 	}
 
 	/*
@@ -40,7 +57,7 @@ public class App42PhonegapPush extends DroidGap {
 	 */
 	public void renderData(final String message) {
 		try {
-			GCMIntentService.resetMsgCount();
+			App42GCMService.resetMsgCount();
 			Thread.sleep(5000);
 			super.loadUrl("javascript:pushMessageAlert(\"" + message + "\")");
 		} catch (InterruptedException e) {
@@ -62,23 +79,15 @@ public class App42PhonegapPush extends DroidGap {
 		}
 	}
 	/*
-	 * This method receives push notification and registartion Id
+	 * This method receives Push Notification messages 
 	 */
 	private final BroadcastReceiver mHandleMessageReceiver = new BroadcastReceiver() {
 		@Override
 		public void onReceive(Context context, Intent intent) {
 			try {
-				String registartionId=intent.getExtras().getString(
-						GCMIntentService.REGISTRATION_ID);
-				if(registartionId!=null){
-					registerForApp42Push(registartionId);
-				}
-				else{
-					String message = intent.getStringExtra(GCMIntentService.EXTRA_MESSAGE);
+					String message = intent.getStringExtra(App42GCMService.ExtraMessage);
 					if (message != null)
 						renderData(message);
-				}
-				
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -89,12 +98,29 @@ public class App42PhonegapPush extends DroidGap {
 	public void onStart() {
 		super.onStart();
 		registerReceiver(mHandleMessageReceiver, new IntentFilter(
-				GCMIntentService.DISPLAY_MESSAGE_ACTION));
+				App42GCMService.DisplayMessageAction));
 		
 	}
 	@Override
 	public void onDestroy() {
 		super.onDestroy();
 		unregisterReceiver(mHandleMessageReceiver);
+	}
+
+	/* (non-Javadoc)
+	 * @see com.shephertz.app42.push.plugin.App42GCMController.App42GCMListener#onError(java.lang.String)
+	 */
+	@Override
+	public void onError(String errorMsg) {
+		// TODO Auto-generated method stub
+		
+	}
+	/* (non-Javadoc)
+	 * @see com.shephertz.app42.push.plugin.App42GCMController.App42GCMListener#onGCMRegistrationId(java.lang.String)
+	 */
+	@Override
+	public void onGCMRegistrationId(String gcmRegId) {
+		// TODO Auto-generated method stub
+		registerForApp42Push(gcmRegId);
 	}
 }
